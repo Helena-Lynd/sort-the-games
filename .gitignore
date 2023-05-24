@@ -1,0 +1,3 @@
+server/api/db.yml
+*.idea
+*.pyc
