@@ -1,0 +1,54 @@
+/* Container for the title */
+.title{
+	text-align: center;
+	padding-top: 0.5em;
+	font-weight: bold;
+	font-family: 'Oswald';
+	font-size: 60px;
+}
+/* Color of "Sort" */
+.title-first-word {
+	color: #ff3355
+}
+/* Color of "The" */
+.title-second-word {
+	color: #d5d7d9
+}
+/* Color of "Gamedle" */
+.title-third-word {
+	color: #45a3e5
+}
+
+.text-square {
+  background-color: #EDEFF1; 
+  box-shadow: 0px 10px #D5D7D9;
+  width: 12em;
+  padding-top: 3em;
+  padding-bottom: 3em;
+  border: none;
+  border-radius: 25px;
+  text-align: center;
+  position: relative;
+  left: 450px;
+  top: 50px;
+  cursor: pointer;
+  z-index: 5; 
+  animation-delay: 0.15s;
+  transition: transform 0.4s ease 0s; 
+}
+
+.empty_tile {
+    border: 2px solid #edeff1;
+    border-radius: 12%;
+    height: 21.6%;
+    position: absolute;
+    width: 22%;
+	transform: translate(0px, 0px); 
+	animation-delay: 0.15s;
+}
+
+/* Default text style, used for the text on the game tiles */
+p {
+	font-family: 'Oswald';
+	font-size: 24px;
+}
