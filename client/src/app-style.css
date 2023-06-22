@@ -1,5 +1,5 @@
 /* Container for the title */
-.title{
+.title {
 	text-align: center;
 	padding-top: 0.5em;
 	font-weight: bold;
@@ -8,7 +8,7 @@
 }
 /* Color of "Sort" */
 .title-first-word {
-	color: #ff3355
+	color: #45a3e5
 }
 /* Color of "The" */
 .title-second-word {
@@ -16,12 +16,18 @@
 }
 /* Color of "Gamedle" */
 .title-third-word {
-	color: #45a3e5
+	color: #ff3355
 }
 
+/* Container that creates a grid for the game tiles */
+.grid-container {
+	display: grid;
+	grid-template-columns: repeat(4, 0.1fr);
+}
+/* Style for a game tile */
 .game-tile {
-  background-color: #EDEFF1; 
-  box-shadow: 0px 10px #D5D7D9;
+  background-color: #edeff1; 
+  box-shadow: 0px 10px #d5d7d9;
   width: 12em;
   padding-top: 3em;
   padding-bottom: 3em;
@@ -30,21 +36,24 @@
   text-align: center;
   position: relative;
   cursor: pointer;
-  z-index: 5; 
-  animation-delay: 0.15s;
-  transition: transform 0.4s ease 0s; 
 }
 
-.empty-tile {
-    border: 2px solid #edeff1;
-    border-radius: 12%;
-    height: 21.6%;
-    position: absolute;
-    width: 22%;
-	transform: translate(0px, 0px); 
-	animation-delay: 0.15s;
+/* Positioning the "Games Found" text */
+.games-found {
+	font-family: 'Oswald';
+	font-size: 40px;
+	left: 13.5em; 
+	top: 3.5em;
+	position: relative;
 }
-
+/* Positioning the "Swaps Left" text */
+.swaps-left {
+	font-family: 'Oswald';
+	font-size: 40px;
+	left: 28em; 
+	top: 3.5em;
+	position: relative;
+}
 /* Default text style, used for the text on the game tiles */
 p {
 	font-family: 'Oswald';
