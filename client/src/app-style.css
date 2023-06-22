@@ -8,15 +8,15 @@
 }
 /* Color of "Sort" */
 .title-first-word {
-	color: #45a3e5
+	color: #45a3e5;
 }
 /* Color of "The" */
 .title-second-word {
-	color: #d5d7d9
+	color: #d5d7d9;
 }
 /* Color of "Gamedle" */
 .title-third-word {
-	color: #ff3355
+	color: #ff3355;
 }
 
 /* Container that creates a grid for the game tiles */
@@ -58,4 +58,30 @@
 p {
 	font-family: 'Oswald';
 	font-size: 24px;
+}
+
+.accordion {
+  max-width: 51em;
+  margin: 2rem auto;
+}
+
+.accordion-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: pointer;
+  background-color: #45a3e5;
+}
+
+.accordion-title:hover {
+  background-color: #45a3d2;
+}
+
+.accordion-title,
+.accordion-content {
+  padding: 1rem;
+}
+
+.accordion-content {
+  background-color: #45a3d2;
 }
