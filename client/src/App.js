@@ -44,15 +44,16 @@ function GameTile(props) {
 
 function Accordion(props) {
   const [isActive, setIsActive] = useState(false);
-  //const color = props.color;
+  const color = props.color;
+  const bgColor = props.backgroundColor;
 
   return (
     <div className="accordion-item">
-      <div className="accordion-title" /*style={{ backgroundColor: color }}*/ onClick={() => setIsActive(!isActive)}>
+      <div className="accordion-title" style={{ backgroundColor: color }} onClick={() => setIsActive(!isActive)}>
         <div>{props.title}</div>
         <div>{isActive ? '-' : '+'}</div>
       </div>
-      {isActive && <div className="accordion-content">{props.content}</div>}
+      {isActive && <div className="accordion-content" style={{ backgroundColor: bgColor }}>{props.content}</div>}
     </div>
   );
 };
@@ -69,25 +70,29 @@ function App() {
 	const [theme2, setTheme2] = useState([]);
 	const [theme3, setTheme3] = useState([]);
 	const [theme4, setTheme4] = useState([]);
+
+	/* Theme colors (for tiles, drop shadows, and accordions) */
+	const theme1Color = '#45a3e5';
+	const theme1BackgroundColor = '#2975ab';
 	
 	/* An array containing the positions of each tile on the board */
 	const [boxPositions, setBoxPositions] = useState([
-		{ title: 'MAJORAS MASK', color: '#edeff1', boxShadow: '0px 10px #d5d7d9', attribute: 'Setting: Parallel World'},
-		{ title: 'PERSONA 5', color: '#edeff1', boxShadow: '0px 10px #d5d7d9', attribute: 'Setting: Parallel World'},
-		{ title: 'OUTER WILDS', color: '#edeff1', boxShadow: '0px 10px #d5d7d9', attribute: 'Main Character: Alien'},
-		{ title: 'ODDWORLD', color: '#edeff1', boxShadow: '0px 10px #d5d7d9', attribute: 'Main Character: Alien'},
-		{ title: 'KINGDOM HEARTS', color: '#edeff1', boxShadow: '0px 10px #d5d7d9', attribute: 'Setting: Parallel World'},
-		{ title: 'UNDERTALE', color: '#edeff1', boxShadow: '0px 10px #d5d7d9', attribute: 'Setting: Parallel World'},
-		{ title: 'ALIEN HOMINID', color: '#edeff1', boxShadow: '0px 10px #d5d7d9', attribute: 'Main Character: Alien'},
-		{ title: 'RATCHET & CLANK', color: '#edeff1', boxShadow: '0px 10px #d5d7d9', attribute: 'Main Character: Alien'},
-		{ title: '12 MINUTES', color: '#edeff1', boxShadow: '0px 10px #d5d7d9', attribute: 'Publisher: Netflix'},
-		{ title: 'IMMORTALITY', color: '#edeff1', boxShadow: '0px 10px #d5d7d9', attribute: 'Publisher: Netflix'},
-		{ title: 'DEATHLOOP', color: '#edeff1', boxShadow: '0px 10px #d5d7d9', attribute: 'Developer: Arkane'},
-		{ title: 'DISHONORED', color: '#edeff1', boxShadow: '0px 10px #d5d7d9', attribute: 'Developer: Arkane'},
-		{ title: 'MOONLIGHTER', color: '#edeff1', boxShadow: '0px 10px #d5d7d9', attribute: 'Publisher: Netflix'},
-		{ title: 'OXENFREE', color: '#edeff1', boxShadow: '0px 10px #d5d7d9', attribute: 'Publisher: Netflix'},
-		{ title: 'PREY', color: '#edeff1', boxShadow: '0px 10px #d5d7d9', attribute: 'Developer: Arkane'},
-		{ title: 'REDFALL', color: '#edeff1', boxShadow: '0px 10px #d5d7d9', attribute: 'Developer: Arkane'},
+		{ title: 'MAJORAS MASK',	attribute: 'Setting: Parallel World', 	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'PERSONA 5', 		attribute: 'Setting: Parallel World',	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'OUTER WILDS', 	attribute: 'Main Character: Alien', 	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'ODDWORLD', 		attribute: 'Main Character: Alien', 	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'KINGDOM HEARTS', 	attribute: 'Setting: Parallel World', 	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'UNDERTALE',		attribute: 'Setting: Parallel World',  	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'ALIEN HOMINID', 	attribute: 'Main Character: Alien', 	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'RATCHET & CLANK', attribute: 'Main Character: Alien', 	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: '12 MINUTES', 		attribute: 'Publisher: Netflix', 		color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'IMMORTALITY', 	attribute: 'Publisher: Netflix', 		color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'DEATHLOOP', 		attribute: 'Developer: Arkane', 		color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'DISHONORED',		attribute: 'Developer: Arkane', 		color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'MOONLIGHTER', 	attribute: 'Publisher: Netflix',		color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'OXENFREE', 		attribute: 'Publisher: Netflix', 		color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'PREY', 			attribute: 'Developer: Arkane', 		color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'REDFALL', 		attribute: 'Developer: Arkane', 		color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
 	]);
 
 	/* Saves the index of the dragged tile */
@@ -113,10 +118,6 @@ function App() {
 		if (swapsLeft >= 1) {
 			setSwapsLeft(swapsLeft-1);
 		}
-		
-		/*
-		{ title: 'Setting: Parallel World', content: 'Games set in a world much like the main characters, but darkly different.' }
-		*/
 	};
 
 	/* Allows drag and drop functionality for the tiles */
@@ -129,13 +130,13 @@ function App() {
 		checkBoard();
 	}, [boxPositions]);
 	
-	function checkBoard() {
-		/* Check matches in row 1 */
-		var firstTheme = boxPositions[0].attribute;
+	/* Check a single row */
+	function checkRow(rowStart, rowEnd){
+		var firstTheme = boxPositions[rowStart].attribute;
 		var firstThemeCount = 1;
 		var secondTheme;
 		var secondThemeCount = 0;
-		for (var i = 1; i < 4; i++) {
+		for (var i = rowStart+1; i < rowEnd+1; i++) {
 			if (boxPositions[i].attribute == firstTheme) {
 				firstThemeCount++;
 			} else if (secondThemeCount == 0) {
@@ -148,32 +149,116 @@ function App() {
 		
 		if (firstThemeCount == 4) {
 			const updatedColors = [...boxPositions];
-			for (var i=0; i<4; i++){
+			for (var i=rowStart; i<rowEnd+1; i++){
 				updatedColors[i].color = '#45a3e5';
+				updatedColors[i].boxShadow = '0px 10px #2975ab';
 			}
 			setBoxPositions(updatedColors);
-
-			// WHY IS THIS JUST INSTA ADDING TO 5???
-			if (themesFound < 5) {
-				setThemesFound(themesFound+1);
-			}
 	
 			if (theme1.length == 0) {
 				var newTitle = 'Setting: Parallel World';
 				var newContent = 'Games set in a world much like the main characters, but darkly different.';
 				var newTheme = {title: newTitle, content: newContent}
 				setTheme1(newTheme);
+				setThemesFound(themesFound+1);
 			}
-		}
-		/*
-		if (theme2count == 3) {
+		} else if (firstThemeCount == 3 || secondThemeCount == 3) {
+			var whichTheme;
+			if (firstThemeCount == 3) {
+				whichTheme = firstTheme;
+			} else {
+				whichTheme = secondTheme;
+			}
 			const updatedColors = [...boxPositions];
-			for (var i=0; i<4; i++){
-				updatedColors[i].color = '#45a3e5';
+			for (var i=rowStart; i<rowEnd+1; i++){
+				if (updatedColors[i].attribute == whichTheme) {
+					updatedColors[i].color = '#ffff38';
+					updatedColors[i].boxShadow = '0px 10px #f0f016';
+				} else {
+					updatedColors[i].color = '#edeff1';
+					updatedColors[i].boxShadow = '0px 10px #d5d7d9';
+				}
+			}
+			setBoxPositions(updatedColors);
+		} else {			
+			const updatedColors = [...boxPositions];
+			for (var i=rowStart; i<rowEnd+1; i++){
+				updatedColors[i].color = '#edeff1';
+				updatedColors[i].boxShadow = '0px 10px #d5d7d9'
 			}
 			setBoxPositions(updatedColors);
 		}
-		*/
+	}
+	
+	/* Check a single column */
+	function checkColumn(columnStart, columnEnd){
+		var firstTheme = boxPositions[columnStart].attribute;
+		var firstThemeCount = 1;
+		var secondTheme;
+		var secondThemeCount = 0;
+		for (var i = columnStart+4; i < columnEnd+1; i+=4) {
+			if (boxPositions[i].attribute == firstTheme) {
+				firstThemeCount++;
+			} else if (secondThemeCount == 0) {
+				secondTheme = boxPositions[i].attribute;
+				secondThemeCount++;
+			} else if (boxPositions[i].attribute == secondTheme) {
+				secondThemeCount++;
+			}
+		}
+		
+		if (firstThemeCount == 4) {
+			const updatedColors = [...boxPositions];
+			for (var i=columnStart; i<columnEnd+1; i+=4){
+				updatedColors[i].color = '#45a3e5';
+				updatedColors[i].boxShadow = '0px 10px #2975ab';
+			}
+			setBoxPositions(updatedColors);
+	
+			if (theme1.length == 0) {
+				var newTitle = 'Setting: Parallel World';
+				var newContent = 'Games set in a world much like the main characters, but darkly different.';
+				var newTheme = {title: newTitle, content: newContent}
+				setTheme1(newTheme);
+				setThemesFound(themesFound+1);
+			}
+		} else if (firstThemeCount == 3 || secondThemeCount == 3) {
+			var whichTheme;
+			if (firstThemeCount == 3) {
+				whichTheme = firstTheme;
+			} else {
+				whichTheme = secondTheme;
+			}
+			const updatedColors = [...boxPositions];
+			for (var i=columnStart; i<columnEnd+1; i+=4){
+				if (updatedColors[i].attribute == whichTheme) {
+					updatedColors[i].color = '#ffff38';
+					updatedColors[i].boxShadow = '0px 10px #f0f016';
+				} else {
+					updatedColors[i].color = '#edeff1';
+					updatedColors[i].boxShadow = '0px 10px #d5d7d9';
+				}
+			}
+			setBoxPositions(updatedColors);
+		} else {			
+			const updatedColors = [...boxPositions];
+			for (var i=columnStart; i<columnEnd+1; i+=4){
+				updatedColors[i].color = '#edeff1';
+				updatedColors[i].boxShadow = '0px 10px #d5d7d9'
+			}
+			setBoxPositions(updatedColors);
+		}
+	}
+	
+	function checkBoard() {
+		checkRow(0, 3);
+		checkRow(4, 7);
+		checkRow(8, 11);
+		checkRow(12, 15);
+		checkColumn(0, 12);
+		checkColumn(1, 13);
+		checkColumn(2, 14);
+		checkColumn(3, 15);
 	}
 
 	return (
@@ -211,7 +296,7 @@ function App() {
 			<br/> <br/> <br/> <br/> <br/>
 			
 			<div className="accordion">
-					<Accordion title={theme1.title} content={theme1.content} />
+					<Accordion title={theme1.title} content={theme1.content} color={theme1Color} backgroundColor={theme1BackgroundColor} />
 			</div>
 			
 			<div className="accordion">
