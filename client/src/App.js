@@ -118,6 +118,8 @@ function App() {
 		if (swapsLeft >= 1) {
 			setSwapsLeft(swapsLeft-1);
 		}
+		
+		checkBoard(updatedPositions);
 	};
 
 	/* Allows drag and drop functionality for the tiles */
@@ -125,30 +127,30 @@ function App() {
 		event.preventDefault();
 	};
 	
-	useEffect(() => {
+//	useEffect(() => {
 		// Function to be executed when `boxPositions` has changed
-		checkBoard();
-	}, [boxPositions]);
+//		checkBoard();
+//	}, [boxPositions]);
 	
 	/* Check a single row */
-	function checkRow(rowStart, rowEnd){
-		var firstTheme = boxPositions[rowStart].attribute;
+	function checkRow(rowStart, rowEnd, newBoxPositions){
+		var firstTheme = newBoxPositions[rowStart].attribute;
 		var firstThemeCount = 1;
 		var secondTheme;
 		var secondThemeCount = 0;
+		const updatedColors = [...newBoxPositions];
 		for (var i = rowStart+1; i < rowEnd+1; i++) {
-			if (boxPositions[i].attribute == firstTheme) {
+			if (newBoxPositions[i].attribute == firstTheme) {
 				firstThemeCount++;
 			} else if (secondThemeCount == 0) {
-				secondTheme = boxPositions[i].attribute;
+				secondTheme = newBoxPositions[i].attribute;
 				secondThemeCount++;
-			} else if (boxPositions[i].attribute == secondTheme) {
+			} else if (newBoxPositions[i].attribute == secondTheme) {
 				secondThemeCount++;
 			}
 		}
 		
 		if (firstThemeCount == 4) {
-			const updatedColors = [...boxPositions];
 			for (var i=rowStart; i<rowEnd+1; i++){
 				updatedColors[i].color = '#45a3e5';
 				updatedColors[i].boxShadow = '0px 10px #2975ab';
@@ -169,7 +171,6 @@ function App() {
 			} else {
 				whichTheme = secondTheme;
 			}
-			const updatedColors = [...boxPositions];
 			for (var i=rowStart; i<rowEnd+1; i++){
 				if (updatedColors[i].attribute == whichTheme) {
 					updatedColors[i].color = '#ffff38';
@@ -181,34 +182,34 @@ function App() {
 			}
 			setBoxPositions(updatedColors);
 		} else {			
-			const updatedColors = [...boxPositions];
 			for (var i=rowStart; i<rowEnd+1; i++){
 				updatedColors[i].color = '#edeff1';
 				updatedColors[i].boxShadow = '0px 10px #d5d7d9'
 			}
 			setBoxPositions(updatedColors);
 		}
+		return updatedColors;
 	}
 	
 	/* Check a single column */
-	function checkColumn(columnStart, columnEnd){
-		var firstTheme = boxPositions[columnStart].attribute;
+	function checkColumn(columnStart, columnEnd, newBoxPositions){
+		var firstTheme = newBoxPositions[columnStart].attribute;
 		var firstThemeCount = 1;
 		var secondTheme;
 		var secondThemeCount = 0;
 		for (var i = columnStart+4; i < columnEnd+1; i+=4) {
-			if (boxPositions[i].attribute == firstTheme) {
+			if (newBoxPositions[i].attribute == firstTheme) {
 				firstThemeCount++;
 			} else if (secondThemeCount == 0) {
-				secondTheme = boxPositions[i].attribute;
+				secondTheme = newBoxPositions[i].attribute;
 				secondThemeCount++;
-			} else if (boxPositions[i].attribute == secondTheme) {
+			} else if (newBoxPositions[i].attribute == secondTheme) {
 				secondThemeCount++;
 			}
 		}
 		
 		if (firstThemeCount == 4) {
-			const updatedColors = [...boxPositions];
+			const updatedColors = [...newBoxPositions];
 			for (var i=columnStart; i<columnEnd+1; i+=4){
 				updatedColors[i].color = '#45a3e5';
 				updatedColors[i].boxShadow = '0px 10px #2975ab';
@@ -229,7 +230,7 @@ function App() {
 			} else {
 				whichTheme = secondTheme;
 			}
-			const updatedColors = [...boxPositions];
+			const updatedColors = [...newBoxPositions];
 			for (var i=columnStart; i<columnEnd+1; i+=4){
 				if (updatedColors[i].attribute == whichTheme) {
 					updatedColors[i].color = '#ffff38';
@@ -241,7 +242,7 @@ function App() {
 			}
 			setBoxPositions(updatedColors);
 		} else {			
-			const updatedColors = [...boxPositions];
+			const updatedColors = [...newBoxPositions];
 			for (var i=columnStart; i<columnEnd+1; i+=4){
 				updatedColors[i].color = '#edeff1';
 				updatedColors[i].boxShadow = '0px 10px #d5d7d9'
@@ -250,15 +251,15 @@ function App() {
 		}
 	}
 	
-	function checkBoard() {
-		checkRow(0, 3);
-		checkRow(4, 7);
-		checkRow(8, 11);
-		checkRow(12, 15);
-		checkColumn(0, 12);
-		checkColumn(1, 13);
-		checkColumn(2, 14);
-		checkColumn(3, 15);
+	function checkBoard(newBoxPositions) {
+		checkRow(0, 3, newBoxPositions);
+		checkRow(4, 7, newBoxPositions);
+		checkRow(8, 11, newBoxPositions);
+		const newRowPositions = checkRow(12, 15, newBoxPositions);
+		checkColumn(0, 12, newRowPositions);
+		checkColumn(1, 13, newRowPositions);
+		checkColumn(2, 14, newRowPositions);
+		checkColumn(3, 15, newRowPositions);
 	}
 
 	return (
