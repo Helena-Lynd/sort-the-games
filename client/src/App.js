@@ -20,8 +20,19 @@ function attributeMatch(start, end, increment, updatedBoard) {
 	let secondTheme;
 	let secondThemeCount = 0;
 	
+	let attribute2 = "";
+	let attribute2Count = 0;
+	
+	// If either of the first two tiles have a second attribute, need to check all tiles for it
+	if (updatedBoard[start].attribute2 !== ""){
+		attribute2 = updatedBoard[start].attribute2;
+		attribute2Count = 1;
+	} else if (updatedBoard[start + increment].attribute2 !== "") {
+		attribute2 = updatedBoard[start + increment].attribute2;
+	}
+	
 	// Loop through the row or column and add to the theme counts declared above accordingly
-	for (let i = start + increment; i < end + 1; i += increment) {
+	for (let i = start + increment; i < end + 1; i += increment) {		
 		if (updatedBoard[i].attribute === firstTheme) {
 			firstThemeCount++;
 		} else if (secondThemeCount === 0) {
@@ -30,10 +41,15 @@ function attributeMatch(start, end, increment, updatedBoard) {
 		} else if (updatedBoard[i].attribute === secondTheme) {
 			secondThemeCount++;
 		}
+		
+		if (attribute2 !== "") {
+			if (updatedBoard[i].attribute2 === attribute2) {
+				attribute2Count++;
+			}
+		}
 	}
-	return [firstTheme, firstThemeCount, secondTheme, secondThemeCount]
+	return [firstTheme, firstThemeCount, secondTheme, secondThemeCount, attribute2, attribute2Count]
 }
-
 
 
 function App() {
@@ -51,12 +67,14 @@ function App() {
 	const [theme2, setTheme2] = useState([]);
 	const [theme3, setTheme3] = useState([]);
 	const [theme4, setTheme4] = useState([]);
+	const [theme5, setTheme5] = useState([]);
 	
 	// Themes and Descriptions, reference variables so that they will update immediately for render logic
 	const theme1Var = useRef([]);
 	const theme2Var = useRef([]);
 	const theme3Var = useRef([]);
 	const theme4Var = useRef([]);
+	const theme5Var = useRef([]);
 
 	// Theme colors (for tiles, drop shadows, and accordions)
 	const theme1Color = '#45a3e5';
@@ -67,25 +85,27 @@ function App() {
 	const theme3BackgroundColor = '#5f2f8f';
 	const theme4Color = '#f0721f';
 	const theme4BackgroundColor = '#c25208';
+	const theme5Color = '#66bf39';
+	const theme5BackgroundColor = '#499920';
 	
 	// An array containing the positions of each tile on the board
 	const [gameBoard, setGameBoard] = useState([
-		{ title: 'MAJORAS MASK',	attribute: 'Setting: Parallel World', 	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'PERSONA 5', 		attribute: 'Setting: Parallel World',	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'OUTER WILDS', 	attribute: 'Main Character: Alien', 	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'ODDWORLD', 		attribute: 'Main Character: Alien', 	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'KINGDOM HEARTS', 	attribute: 'Setting: Parallel World', 	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'UNDERTALE',		attribute: 'Setting: Parallel World',  	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'ALIEN HOMINID', 	attribute: 'Main Character: Alien', 	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'RATCHET & CLANK', attribute: 'Main Character: Alien', 	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: '12 MINUTES', 		attribute: 'Publisher: Netflix', 		color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'IMMORTALITY', 	attribute: 'Publisher: Netflix', 		color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'DEATHLOOP', 		attribute: 'Developer: Arkane', 		color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'DISHONORED',		attribute: 'Developer: Arkane', 		color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'MOONLIGHTER', 	attribute: 'Publisher: Netflix',		color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'OXENFREE', 		attribute: 'Publisher: Netflix', 		color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'PREY', 			attribute: 'Developer: Arkane', 		color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'REDFALL', 		attribute: 'Developer: Arkane', 		color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'MAJORAS MASK',	attribute: 'Setting: Parallel World', 	content: "A world much like the main characters, but darkly different.",	attribute2: "Mechanic: Time Travel/Loop",	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'PERSONA 5', 		attribute: 'Setting: Parallel World',	content: "A world much like the main characters, but darkly different.",	attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'OUTER WILDS', 	attribute: 'Main Character: Alien', 	content: "You play as an alien.",											attribute2: "Mechanic: Time Travel/Loop",	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'ODDWORLD', 		attribute: 'Main Character: Alien', 	content: "You play as an alien.",											attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'KINGDOM HEARTS', 	attribute: 'Setting: Parallel World', 	content: "A world much like the main characters, but darkly different.",	attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'UNDERTALE',		attribute: 'Setting: Parallel World',  	content: "A world much like the main characters, but darkly different.",	attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'ALIEN HOMINID', 	attribute: 'Main Character: Alien', 	content: "You play as an alien.",											attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'RATCHET & CLANK', attribute: 'Main Character: Alien', 	content: "You play as an alien.",											attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: '12 MINUTES', 		attribute: 'Publisher: Netflix', 		content: "Netflix publishes the game.",										attribute2: "Mechanic: Time Travel/Loop",	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'IMMORTALITY', 	attribute: 'Publisher: Netflix', 		content: "Netflix publishes the game.",										attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'DEATHLOOP', 		attribute: 'Developer: Arkane', 		content: "Arkane Studios develops the game.",								attribute2: "Mechanic: Time Travel/Loop",	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'DISHONORED',		attribute: 'Developer: Arkane', 		content: "Arkane Studios develops the game.",								attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'MOONLIGHTER', 	attribute: 'Publisher: Netflix',		content: "Netflix publishes the game.",										attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'OXENFREE', 		attribute: 'Publisher: Netflix', 		content: "Netflix publishes the game.",										attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'PREY', 			attribute: 'Developer: Arkane', 		content: "Arkane Studios develops the game.",								attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'REDFALL', 		attribute: 'Developer: Arkane', 		content: "Arkane Studios develops the game.",								attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
 	]);
 
 	// Saves the index of the dragged tile
@@ -160,22 +180,35 @@ function App() {
 		// The attribute of the second tile, and the number of tiles in the line that share that attribute
 		let secondTheme = values[2];
 		let secondThemeCount = values[3];
+		
+		// The second attibute associated with tiles, if applicable
+		let attribute2 = values[4];
+		let attribute2Count = values[5];
 
 		if (firstThemeCount === 4) {
 			if (firstTheme !== theme1Var.current[0] && firstTheme !== theme2Var.current[0] && firstTheme !== theme3Var.current[0] && firstTheme !== theme4Var.current[0]) {
-				modifyUpdatedBoard = lineOfFour(start, end, increment, modifyUpdatedBoard)
+				modifyUpdatedBoard = lineOfFour(start, end, increment, modifyUpdatedBoard, false)
 			}
-		} else if (firstThemeCount === 3 || secondThemeCount === 3) {
+		} else if (attribute2Count === 4){
+			if (attribute2 !== theme5Var.current[0]) {
+				modifyUpdatedBoard = lineOfFour(start, end, increment, modifyUpdatedBoard, true)
+			}
+		} else if (firstThemeCount === 3 || secondThemeCount === 3 || attribute2Count === 3) {
 			let whichTheme;
 			if (firstThemeCount === 3) {
 				whichTheme = firstTheme;
-			} else {
+			} else if (secondThemeCount === 3) {
 				whichTheme = secondTheme;
+			} 
+			modifyUpdatedBoard = lineOfThree(start, end, increment, modifyUpdatedBoard, whichTheme, column);
+			
+			if (attribute2Count === 3) {
+				modifyUpdatedBoard = lineOfThree(start, end, increment, modifyUpdatedBoard, attribute2, column);
 			}
-			modifyUpdatedBoard = lineOfThree(start, end, increment, modifyUpdatedBoard, whichTheme, column)
 		} else {			
 			modifyUpdatedBoard = noMatches(start, end, increment, modifyUpdatedBoard, column);
 		}
+		
 		return modifyUpdatedBoard;
 	}
 	
@@ -186,17 +219,33 @@ function App() {
 	 * @param {int} end   					: the index of the ending tile in the gameboard array
 	 * @param {int} increment 				: the amount to increment each iteration. 1 for rows, 4 for columns
 	 * @param {array} modifyUpdatedBoard 	: the updated game board 
+	 * @param {boolean} attribute2			: true if the row of 4 is a second attribute, false otherwise
 	*/
-	function lineOfFour (start, end, increment, modifyUpdatedBoard) {
+	function lineOfFour (start, end, increment, modifyUpdatedBoard, attribute2) {
 		// The color and background color to make the tile
 		let color;
 		let bgColor;
 
 		// The title and content of the game tile, to use for updating an accordion
 		let newTitle = modifyUpdatedBoard[start].attribute;
-		let newContent = modifyUpdatedBoard[start].title;
-
-		if (theme1Var.current.length === 0) {
+		let newContent = modifyUpdatedBoard[start].content;
+		
+		if (attribute2) {
+			newTitle = modifyUpdatedBoard[start].attribute2;
+			newContent = modifyUpdatedBoard[start].title;
+		}
+		
+		if (attribute2) {
+			// Update color and bgColor so that the tiles can be updated to the correct color
+			color = theme5Color;
+			bgColor = theme5BackgroundColor;
+		
+			// Update theme5 variables with the updated content
+			let newTheme = {title: newTitle, content: newContent, color: theme5Color, bgColor: theme5BackgroundColor}
+			setTheme5(newTheme);
+			theme5Var.current = [newTitle, newContent, theme5Color, theme5BackgroundColor];
+			
+		} else if (theme1Var.current.length === 0) {
 			// Update color and bgColor so that the tiles can be updated to the correct color
 			color = theme1Color;
 			bgColor = theme1BackgroundColor;
@@ -244,7 +293,9 @@ function App() {
 	
 		// Update the color and box shadows of the game tiles
 		for (let i = start; i < end + 1; i += increment){
-			modifyUpdatedBoard[i].color = color;
+			if (modifyUpdatedBoard[i].color !== '#66bf39') {
+				modifyUpdatedBoard[i].color = color;
+			}
 			modifyUpdatedBoard[i].boxShadow = "0px 10px " + bgColor;
 		}
 		setGameBoard(modifyUpdatedBoard);
@@ -263,7 +314,7 @@ function App() {
 	*/
 	function lineOfThree (start, end, increment, modifyUpdatedBoard, theme, column) {
 		// If the theme of the three tiles is already stored as a theme, it means the line of four was broken. Reset the theme of the line and subtract from the theme count
-		if (theme === theme1Var.current[0] || theme === theme2Var.current[0] || theme === theme3Var.current[0] || theme === theme4Var.current[0]) {
+		if (theme === theme1Var.current[0] || theme === theme2Var.current[0] || theme === theme3Var.current[0] || theme === theme4Var.current[0] || theme === theme5Var.current[0]) {
 			themesFoundVar.current = themesFoundVar.current-1;
 			setThemesFound(themesFoundVar.current);	
 		}
@@ -280,14 +331,24 @@ function App() {
 		} else if (theme === theme4Var.current[0]) {
 			setTheme4([]);
 			theme4Var.current = [];
+		} else if (theme === theme5Var.current[0]) {
+			setTheme5([]);
+			theme5Var.current = [];
 		}
 
 		// Update the line of three tiles to be yellow. Update the odd tile out to gray if it is not already part of a line of three or four
 		for (let i = start; i < end + 1; i += increment){
-			if (modifyUpdatedBoard[i].attribute === theme) {
+			if (modifyUpdatedBoard[i].attribute === theme && (modifyUpdatedBoard[i].color === '#edeff1' || modifyUpdatedBoard[i].color === '#ffff38')) {
+				// If the theme matches and the tile is gray, update it to yellow
 				modifyUpdatedBoard[i].color = '#ffff38';
 				modifyUpdatedBoard[i].boxShadow = '0px 10px #f0f016';
+				
+			} else if (modifyUpdatedBoard[i].attribute === theme && modifyUpdatedBoard[i].color !== '#edeff1' && modifyUpdatedBoard[i].color !== '#ffff38'){
+				// If the theme matches and the tile is a theme color, update only the box shadow to yellow
+				modifyUpdatedBoard[i].boxShadow = '0px 10px #f0f016'; 
+			
 			} else if (modifyUpdatedBoard[i].attribute !== theme1Var.current[0] && modifyUpdatedBoard[i].attribute !== theme2Var.current[0] && modifyUpdatedBoard[i].attribute !== theme3Var.current[0] && modifyUpdatedBoard[i].attribute !== theme4Var.current[0] && (!column || modifyUpdatedBoard[i].color !== '#ffff38')) {
+				// If the theme does not match, recolor it to gray unless it is part of a theme or established yellow connection
 				modifyUpdatedBoard[i].color = '#edeff1';
 				modifyUpdatedBoard[i].boxShadow = '0px 10px #d5d7d9'
 			}
@@ -307,9 +368,16 @@ function App() {
 	*/
 	function noMatches(start, end, increment, modifyUpdatedBoard, column){		
 		for (let i = start; i < end + 1; i += increment){
-			if (modifyUpdatedBoard[i].attribute !== theme1Var.current[0] && modifyUpdatedBoard[i].attribute !== theme2Var.current[0] && modifyUpdatedBoard[i].attribute !== theme3Var.current[0] && modifyUpdatedBoard[i].attribute !== theme4Var.current[0] && (!column || modifyUpdatedBoard[i].color !== '#ffff38')) {
+			if (modifyUpdatedBoard[i].attribute !== theme1Var.current[0] && modifyUpdatedBoard[i].attribute !== theme2Var.current[0] && modifyUpdatedBoard[i].attribute !== theme3Var.current[0] && modifyUpdatedBoard[i].attribute !== theme4Var.current[0] && modifyUpdatedBoard[i].attribute2 !== theme5Var.current[0] && (!column || modifyUpdatedBoard[i].color !== '#ffff38')) {
 				modifyUpdatedBoard[i].color = '#edeff1';
-				modifyUpdatedBoard[i].boxShadow = '0px 10px #d5d7d9'
+			}
+			
+			if (modifyUpdatedBoard[i].attribute !== theme1Var.current[0] && modifyUpdatedBoard[i].attribute !== theme2Var.current[0] && modifyUpdatedBoard[i].attribute !== theme3Var.current[0] && modifyUpdatedBoard[i].attribute !== theme4Var.current[0] && (!column || modifyUpdatedBoard[i].color !== '#ffff38')) {
+				if (modifyUpdatedBoard[i].color === '#66bf39'){
+					modifyUpdatedBoard[i].boxShadow = '0px 10px #499920'
+				} else {
+					modifyUpdatedBoard[i].boxShadow = '0px 10px #d5d7d9'
+				}
 			}
 		}
 		setGameBoard(modifyUpdatedBoard);
@@ -364,6 +432,10 @@ function App() {
 			
 			<div className="accordion">
 				<Accordion title={theme4.title} content={theme4.content} color={theme4.color} bgColor={theme4.bgColor} />
+			</div>
+			
+			<div className="accordion">
+				<Accordion title={theme5.title} content={theme5.content} color={theme5.color} bgColor={theme5.bgColor} />
 			</div>
 			
 		</Fragment>
