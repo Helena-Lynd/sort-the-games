@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useRef } from 'react';
 import './app-style.css';
 
 function GameTile(props) {
@@ -48,10 +48,9 @@ function Accordion(props) {
   const bgColor = props.backgroundColor;
 
   return (
-    <div className="accordion-item">
+    <div>
       <div className="accordion-title" style={{ backgroundColor: color }} onClick={() => setIsActive(!isActive)}>
         <div>{props.title}</div>
-        <div>{isActive ? '-' : '+'}</div>
       </div>
       {isActive && <div className="accordion-content" style={{ backgroundColor: bgColor }}>{props.content}</div>}
     </div>
@@ -60,20 +59,32 @@ function Accordion(props) {
 
 function App() {
 	/* Number of swaps left before the game ends */
-	const [swapsLeft, setSwapsLeft] = useState(15);
+	const [swapsLeft, setSwapsLeft] = useState(100);
 	
 	/* Number of themes found */
 	const [themesFound, setThemesFound] = useState(0);
 	
-	/* Themes and Descriptions */
+	/* Themes and Descriptions, state variables so that accordions will render appropriately */
 	const [theme1, setTheme1] = useState([]);
 	const [theme2, setTheme2] = useState([]);
 	const [theme3, setTheme3] = useState([]);
 	const [theme4, setTheme4] = useState([]);
+	
+	/* Themes and Descriptions, variables so that they will update immediately for render logic */
+	const theme1Var = useRef([]);
+	const theme2Var = useRef([]);
+	const theme3Var = useRef([]);
+	const theme4Var = useRef([]);
 
 	/* Theme colors (for tiles, drop shadows, and accordions) */
 	const theme1Color = '#45a3e5';
 	const theme1BackgroundColor = '#2975ab';
+	const theme2Color = '#ff3355';
+	const theme2BackgroundColor = '#db1f3e';
+	const theme3Color = '#864cbf';
+	const theme3BackgroundColor = '#5f2f8f';
+	const theme4Color = '#f0721f';
+	const theme4BackgroundColor = '#c25208';
 	
 	/* An array containing the positions of each tile on the board */
 	const [boxPositions, setBoxPositions] = useState([
@@ -127,11 +138,6 @@ function App() {
 		event.preventDefault();
 	};
 	
-//	useEffect(() => {
-		// Function to be executed when `boxPositions` has changed
-//		checkBoard();
-//	}, [boxPositions]);
-	
 	/* Check a single row */
 	function checkRow(rowStart, rowEnd, newBoxPositions){
 		var firstTheme = newBoxPositions[rowStart].attribute;
@@ -151,19 +157,49 @@ function App() {
 		}
 		
 		if (firstThemeCount == 4) {
-			for (var i=rowStart; i<rowEnd+1; i++){
-				updatedColors[i].color = '#45a3e5';
-				updatedColors[i].boxShadow = '0px 10px #2975ab';
-			}
-			setBoxPositions(updatedColors);
-	
-			if (theme1.length == 0) {
-				var newTitle = 'Setting: Parallel World';
-				var newContent = 'Games set in a world much like the main characters, but darkly different.';
-				var newTheme = {title: newTitle, content: newContent}
+			if (firstTheme != theme1Var.current[0] && firstTheme != theme2Var.current[0] && firstTheme != theme3Var.current[0] && firstTheme != theme4Var.current[0]) {
+			var color;
+			var bgColor;
+			var newTitle = newBoxPositions[rowStart].attribute;
+			var newContent = newBoxPositions[rowStart].title;
+				
+			if (theme1Var.current.length == 0) {
+				color = theme1Color;
+				bgColor = theme1BackgroundColor;
+				var newTheme = {title: newTitle, content: newContent, color: theme1Color, bgColor: theme1BackgroundColor}
 				setTheme1(newTheme);
+				theme1Var.current = [newTitle, newContent, theme1Color, theme1BackgroundColor];
+				setThemesFound(themesFound+1);
+			} else if (theme2Var.current.length == 0) {
+				color = theme2Color;
+				bgColor = theme2BackgroundColor;
+				var newTheme = {title: newTitle, content: newContent, color: theme2Color, bgColor: theme2BackgroundColor}
+				setTheme2(newTheme);
+				theme2Var.current = [newTitle, newContent, theme2Color, theme2BackgroundColor];
+				setThemesFound(themesFound+1);
+			} else if (theme3Var.current.length == 0) {
+				color = theme3Color;
+				bgColor = theme3BackgroundColor;
+				var newTheme = {title: newTitle, content: newContent, color: theme3Color, bgColor: theme3BackgroundColor}
+				setTheme3(newTheme);
+				theme3Var.current = [newTitle, newContent, theme3Color, theme3BackgroundColor];
+				setThemesFound(themesFound+1);
+			} else if (theme4Var.current.length == 0) {
+				color = theme4Color;
+				bgColor = theme4BackgroundColor;
+				var newTheme = {title: newTitle, content: newContent, color: theme4Color, bgColor: theme4BackgroundColor}
+				setTheme4(newTheme);
+				theme4Var.current = [newTitle, newContent, theme4Color, theme4BackgroundColor];
 				setThemesFound(themesFound+1);
 			}
+		
+			for (var i=rowStart; i<rowEnd+1; i++){
+				updatedColors[i].color = color;
+				updatedColors[i].boxShadow = "0px 10px " + bgColor;
+			}
+			setBoxPositions(updatedColors);
+			}
+			
 		} else if (firstThemeCount == 3 || secondThemeCount == 3) {
 			var whichTheme;
 			if (firstThemeCount == 3) {
@@ -171,6 +207,24 @@ function App() {
 			} else {
 				whichTheme = secondTheme;
 			}
+			if (whichTheme == theme1Var.current[0]) {
+				setTheme1([]);
+				theme1Var.current = [];
+				setThemesFound(themesFound-1);
+			} else if (whichTheme == theme2Var.current[0]) {
+				setTheme2([]);
+				theme2Var.current = [];
+				setThemesFound(themesFound-1);
+			} else if (whichTheme == theme3Var.current[0]) {
+				setTheme3([]);
+				theme3Var.current = [];
+				setThemesFound(themesFound-1);
+			} else if (whichTheme == theme4Var.current[0]) {
+				setTheme4([]);
+				theme4Var.current = [];
+				setThemesFound(themesFound-1);
+			}
+			
 			for (var i=rowStart; i<rowEnd+1; i++){
 				if (updatedColors[i].attribute == whichTheme) {
 					updatedColors[i].color = '#ffff38';
@@ -183,8 +237,10 @@ function App() {
 			setBoxPositions(updatedColors);
 		} else {			
 			for (var i=rowStart; i<rowEnd+1; i++){
+				if (updatedColors[i].attribute != theme1Var.current[0] && updatedColors[i].attribute != theme2Var.current[0] && updatedColors[i].attribute != theme3Var.current[0] && updatedColors[i].attribute != theme4Var.current[0]) {
 				updatedColors[i].color = '#edeff1';
 				updatedColors[i].boxShadow = '0px 10px #d5d7d9'
+				}
 			}
 			setBoxPositions(updatedColors);
 		}
@@ -207,22 +263,52 @@ function App() {
 				secondThemeCount++;
 			}
 		}
+		const updatedColors = [...newBoxPositions];
 		
 		if (firstThemeCount == 4) {
-			const updatedColors = [...newBoxPositions];
-			for (var i=columnStart; i<columnEnd+1; i+=4){
-				updatedColors[i].color = '#45a3e5';
-				updatedColors[i].boxShadow = '0px 10px #2975ab';
-			}
-			setBoxPositions(updatedColors);
-	
-			if (theme1.length == 0) {
-				var newTitle = 'Setting: Parallel World';
-				var newContent = 'Games set in a world much like the main characters, but darkly different.';
-				var newTheme = {title: newTitle, content: newContent}
+			if (firstTheme != theme1Var.current[0] && firstTheme != theme2Var.current[0] && firstTheme != theme3Var.current[0] && firstTheme != theme4Var.current[0]) {
+			var color;
+			var bgColor;
+			var newTitle = newBoxPositions[columnStart].attribute;
+			var newContent = newBoxPositions[columnStart].title;
+				
+			if (theme1Var.current.length == 0) {
+				color = theme1Color;
+				bgColor = theme1BackgroundColor;
+				var newTheme = {title: newTitle, content: newContent, color: theme1Color, bgColor: theme1BackgroundColor}
 				setTheme1(newTheme);
+				theme1Var.current = [newTitle, newContent, theme1Color, theme1BackgroundColor];
+				setThemesFound(themesFound+1);
+			} else if (theme2Var.current.length == 0) {
+				color = theme2Color;
+				bgColor = theme2BackgroundColor;
+				var newTheme = {title: newTitle, content: newContent, color: theme2Color, bgColor: theme2BackgroundColor}
+				setTheme2(newTheme);
+				theme2Var.current = [newTitle, newContent, theme2Color, theme2BackgroundColor];
+				setThemesFound(themesFound+1);
+			} else if (theme3Var.current.length == 0) {
+				color = theme3Color;
+				bgColor = theme3BackgroundColor;
+				var newTheme = {title: newTitle, content: newContent, color: theme3Color, bgColor: theme3BackgroundColor}
+				setTheme3(newTheme);
+				theme3Var.current = [newTitle, newContent, theme3Color, theme3BackgroundColor];
+				setThemesFound(themesFound+1);
+			} else if (theme4Var.current.length == 0) {
+				color = theme4Color;
+				bgColor = theme4BackgroundColor;
+				var newTheme = {title: newTitle, content: newContent, color: theme4Color, bgColor: theme4BackgroundColor}
+				setTheme4(newTheme);
+				theme4Var.current = [newTitle, newContent, theme4Color, theme4BackgroundColor];
 				setThemesFound(themesFound+1);
 			}
+			
+			for (var i=columnStart; i<columnEnd+1; i+=4){
+				updatedColors[i].color = color;
+				updatedColors[i].boxShadow = '0px 10px ' + bgColor;
+			}
+			setBoxPositions(updatedColors);
+			}
+	
 		} else if (firstThemeCount == 3 || secondThemeCount == 3) {
 			var whichTheme;
 			if (firstThemeCount == 3) {
@@ -230,25 +316,45 @@ function App() {
 			} else {
 				whichTheme = secondTheme;
 			}
-			const updatedColors = [...newBoxPositions];
+			
+			if (whichTheme == theme1Var.current[0]) {
+				setTheme1([]);
+				theme1Var.current = [];
+				setThemesFound(themesFound-1);
+			} else if (whichTheme == theme2Var.current[0]) {
+				setTheme2([]);
+				theme2Var.current = [];
+				setThemesFound(themesFound-1);
+			} else if (whichTheme == theme3Var.current[0]) {
+				setTheme3([]);
+				theme3Var.current = [];
+				setThemesFound(themesFound-1);
+			} else if (whichTheme == theme4Var.current[0]) {
+				setTheme4([]);
+				theme4Var.current = [];
+				setThemesFound(themesFound-1);
+			}
+			
 			for (var i=columnStart; i<columnEnd+1; i+=4){
 				if (updatedColors[i].attribute == whichTheme) {
 					updatedColors[i].color = '#ffff38';
 					updatedColors[i].boxShadow = '0px 10px #f0f016';
-				} else {
+				} else if (updatedColors[i].attribute != theme1Var.current[0] && updatedColors[i].attribute != theme2Var.current[0] && updatedColors[i].attribute != theme3Var.current[0] && updatedColors[i].attribute != theme4Var.current[0] && updatedColors[i].color != '#ffff38') {
 					updatedColors[i].color = '#edeff1';
-					updatedColors[i].boxShadow = '0px 10px #d5d7d9';
+					updatedColors[i].boxShadow = '0px 10px #d5d7d9'
 				}
 			}
 			setBoxPositions(updatedColors);
-		} else {			
-			const updatedColors = [...newBoxPositions];
+		} else {	
 			for (var i=columnStart; i<columnEnd+1; i+=4){
-				updatedColors[i].color = '#edeff1';
-				updatedColors[i].boxShadow = '0px 10px #d5d7d9'
+				if (updatedColors[i].attribute != theme1Var.current[0] && updatedColors[i].attribute != theme2Var.current[0] && updatedColors[i].attribute != theme3Var.current[0] && updatedColors[i].attribute != theme4Var.current[0] && updatedColors[i].color != '#ffff38') {
+					updatedColors[i].color = '#edeff1';
+					updatedColors[i].boxShadow = '0px 10px #d5d7d9'
+				}
 			}
 			setBoxPositions(updatedColors);
 		}
+		return updatedColors;
 	}
 	
 	function checkBoard(newBoxPositions) {
@@ -297,25 +403,19 @@ function App() {
 			<br/> <br/> <br/> <br/> <br/>
 			
 			<div className="accordion">
-					<Accordion title={theme1.title} content={theme1.content} color={theme1Color} backgroundColor={theme1BackgroundColor} />
+				<Accordion title={theme1.title} content={theme1.content} color={theme1.color} colorBg={theme1.bgColor} />
 			</div>
 			
 			<div className="accordion">
-				{theme2.map(({ title, content }) => (
-					<Accordion title={title} content={content} />
-				))}
+				<Accordion title={theme2.title} content={theme2.content} color={theme2.color} colorBg={theme2.bgColor} />
 			</div>
 			
 			<div className="accordion">
-				{theme3.map(({ title, content }) => (
-					<Accordion title={title} content={content} />
-				))}
+				<Accordion title={theme3.title} content={theme3.content} color={theme3.color} colorBg={theme3.bgColor} />
 			</div>
 			
 			<div className="accordion">
-				{theme4.map(({ title, content }) => (
-					<Accordion title={title} content={content} />
-				))}
+				<Accordion title={theme4.title} content={theme4.content} color={theme4.color} colorBg={theme4.bgColor} />
 			</div>
 			
 		</Fragment>

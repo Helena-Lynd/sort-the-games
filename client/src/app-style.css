@@ -60,28 +60,24 @@ p {
 	font-size: 24px;
 }
 
+/* Sets the width of accordions */
 .accordion {
-  max-width: 51em;
-  margin: 2rem auto;
+	max-width: 51em;
+	margin: 2rem auto;
 }
 
 .accordion-title {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  cursor: pointer;
-  background-color: #45a3e5;
-}
-
-.accordion-title:hover {
-  background-color: #45a3d2;
-}
-
-.accordion-title,
-.accordion-content {
-  padding: 1rem;
+	font-family: 'Oswald';
+	font-size: 22px;
+	padding-top: 0.3em;
+	padding-bottom: 0.3em;
+	padding-left: 0.3em;
 }
 
 .accordion-content {
-  background-color: #45a3d2;
+	font-family: 'Oswald';
+	font-size: 18px;
+	padding-top: 0.3em;
+	padding-bottom: 0.3em;
+	padding-left: 0.3em;
 }
