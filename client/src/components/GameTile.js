@@ -37,7 +37,7 @@ export default function GameTile(props) {
 	
 	return (
 		<div className="game-tile" style={{ left: left, top: height, backgroundColor: props.color, boxShadow: props.boxShadow }}>
-			<p>{props.title}</p>
+			<p className="game-tile-text">{props.title}</p>
 		</div>
 	);
 }
