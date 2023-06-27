@@ -15,24 +15,24 @@ export default function GameTile(props) {
 	
 	// Determines what row a tile should display in
 	if (props.index < 4) {
-		height = '30px';
+		height = '20px';
 	} else if (props.index < 8) {
-		height = '60px';
+		height = '50px';
 	} else if (props.index < 12) {
-		height = '90px';
+		height = '80px';
 	} else {
-		height = '120px';
+		height = '110px';
 	}
 	
 	// Determines what column a tile should display in
 	if (props.index === 0 || props.index === 4 || props.index === 8 || props.index === 12) {
-		left = '535px';
+		left = '560px';
 	} else if (props.index === 1 || props.index === 5 || props.index === 9 || props.index === 13) {
-		left = '555px';
+		left = '580px';
 	} else if (props.index === 2 || props.index === 6 || props.index === 10 || props.index === 14) {
-		left = '575px';
+		left = '600px';
 	} else {
-		left = '595px';
+		left = '620px';
 	}
 	
 	return (

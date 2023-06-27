@@ -3,6 +3,7 @@ import './app-style.css';
 import GameTile from './components/GameTile.js';
 import Accordion from './components/Accordion.js';
 
+
 /**
  * Determines how many tiles of a similar kind are lined up
  * 
@@ -54,7 +55,7 @@ function attributeMatch(start, end, increment, updatedBoard) {
 
 function App() {
 	// Number of swaps left before the game ends
-	const [swapsLeft, setSwapsLeft] = useState(100);
+	const [swapsLeft, setSwapsLeft] = useState(15);
 	
 	// Number of themes found, a state variable so the themes found will render appropriately
 	const [themesFound, setThemesFound] = useState(0);
@@ -90,22 +91,22 @@ function App() {
 	
 	// An array containing the positions of each tile on the board
 	const [gameBoard, setGameBoard] = useState([
-		{ title: 'MAJORAS MASK',	attribute: 'Setting: Parallel World', 	content: "A world much like the main characters, but darkly different.",	attribute2: "Mechanic: Time Travel/Loop",	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'PERSONA 5', 		attribute: 'Setting: Parallel World',	content: "A world much like the main characters, but darkly different.",	attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'OUTER WILDS', 	attribute: 'Main Character: Alien', 	content: "You play as an alien.",											attribute2: "Mechanic: Time Travel/Loop",	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'ODDWORLD', 		attribute: 'Main Character: Alien', 	content: "You play as an alien.",											attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'KINGDOM HEARTS', 	attribute: 'Setting: Parallel World', 	content: "A world much like the main characters, but darkly different.",	attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'UNDERTALE',		attribute: 'Setting: Parallel World',  	content: "A world much like the main characters, but darkly different.",	attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'ALIEN HOMINID', 	attribute: 'Main Character: Alien', 	content: "You play as an alien.",											attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'RATCHET & CLANK', attribute: 'Main Character: Alien', 	content: "You play as an alien.",											attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: '12 MINUTES', 		attribute: 'Publisher: Netflix', 		content: "Netflix publishes the game.",										attribute2: "Mechanic: Time Travel/Loop",	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'IMMORTALITY', 	attribute: 'Publisher: Netflix', 		content: "Netflix publishes the game.",										attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'DEATHLOOP', 		attribute: 'Developer: Arkane', 		content: "Arkane Studios develops the game.",								attribute2: "Mechanic: Time Travel/Loop",	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'DISHONORED',		attribute: 'Developer: Arkane', 		content: "Arkane Studios develops the game.",								attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'MOONLIGHTER', 	attribute: 'Publisher: Netflix',		content: "Netflix publishes the game.",										attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'OXENFREE', 		attribute: 'Publisher: Netflix', 		content: "Netflix publishes the game.",										attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'PREY', 			attribute: 'Developer: Arkane', 		content: "Arkane Studios develops the game.",								attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'REDFALL', 		attribute: 'Developer: Arkane', 		content: "Arkane Studios develops the game.",								attribute2: "",								color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'MAJORAS MASK',	attribute: 'Setting: Parallel World', 	content: "A world much like the main characters, but darkly different.",	attribute2: "Mechanic: Time Travel/Loop",	content2: "The main character is stuck in a time loop.", color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'PERSONA 5', 		attribute: 'Setting: Parallel World',	content: "A world much like the main characters, but darkly different.",	attribute2: "",								content2: "",											 color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'OUTER WILDS', 	attribute: 'Main Character: Alien', 	content: "You play as an alien.",											attribute2: "Mechanic: Time Travel/Loop",	content2: "The main character is stuck in a time loop.", color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'ODDWORLD', 		attribute: 'Main Character: Alien', 	content: "You play as an alien.",											attribute2: "",								content2: "",											 color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'KINGDOM HEARTS', 	attribute: 'Setting: Parallel World', 	content: "A world much like the main characters, but darkly different.",	attribute2: "",								content2: "",											 color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'UNDERTALE',		attribute: 'Setting: Parallel World',  	content: "A world much like the main characters, but darkly different.",	attribute2: "",								content2: "",											 color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'ALIEN HOMINID', 	attribute: 'Main Character: Alien', 	content: "You play as an alien.",											attribute2: "",								content2: "",											 color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'RATCHET & CLANK', attribute: 'Main Character: Alien', 	content: "You play as an alien.",											attribute2: "",								content2: "",											 color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: '12 MINUTES', 		attribute: 'Publisher: Netflix', 		content: "Netflix publishes the game.",										attribute2: "Mechanic: Time Travel/Loop",	content2: "The main character is stuck in a time loop.", color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'IMMORTALITY', 	attribute: 'Publisher: Netflix', 		content: "Netflix publishes the game.",										attribute2: "",								content2: "",											 color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'DEATHLOOP', 		attribute: 'Developer: Arkane', 		content: "Arkane Studios develops the game.",								attribute2: "Mechanic: Time Travel/Loop",	content2: "The main character is stuck in a time loop.", color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'DISHONORED',		attribute: 'Developer: Arkane', 		content: "Arkane Studios develops the game.",								attribute2: "",								content2: "",											 color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'MOONLIGHTER', 	attribute: 'Publisher: Netflix',		content: "Netflix publishes the game.",										attribute2: "",								content2: "",											 color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'OXENFREE', 		attribute: 'Publisher: Netflix', 		content: "Netflix publishes the game.",										attribute2: "",								content2: "",											 color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'PREY', 			attribute: 'Developer: Arkane', 		content: "Arkane Studios develops the game.",								attribute2: "",								content2: "",											 color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
+		{ title: 'REDFALL', 		attribute: 'Developer: Arkane', 		content: "Arkane Studios develops the game.",								attribute2: "",								content2: "",											 color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
 	]);
 
 	// Saves the index of the dragged tile
@@ -194,13 +195,11 @@ function App() {
 				modifyUpdatedBoard = lineOfFour(start, end, increment, modifyUpdatedBoard, true)
 			}
 		} else if (firstThemeCount === 3 || secondThemeCount === 3 || attribute2Count === 3) {
-			let whichTheme;
 			if (firstThemeCount === 3) {
-				whichTheme = firstTheme;
+				modifyUpdatedBoard = lineOfThree(start, end, increment, modifyUpdatedBoard, firstTheme, column);
 			} else if (secondThemeCount === 3) {
-				whichTheme = secondTheme;
+				modifyUpdatedBoard = lineOfThree(start, end, increment, modifyUpdatedBoard, secondTheme, column);
 			} 
-			modifyUpdatedBoard = lineOfThree(start, end, increment, modifyUpdatedBoard, whichTheme, column);
 			
 			if (attribute2Count === 3) {
 				modifyUpdatedBoard = lineOfThree(start, end, increment, modifyUpdatedBoard, attribute2, column);
@@ -232,7 +231,7 @@ function App() {
 		
 		if (attribute2) {
 			newTitle = modifyUpdatedBoard[start].attribute2;
-			newContent = modifyUpdatedBoard[start].title;
+			newContent = modifyUpdatedBoard[start].content2;
 		}
 		
 		if (attribute2) {
@@ -293,11 +292,24 @@ function App() {
 	
 		// Update the color and box shadows of the game tiles
 		for (let i = start; i < end + 1; i += increment){
-			if (modifyUpdatedBoard[i].color !== '#66bf39') {
+			if ( (modifyUpdatedBoard[i].color === '#ffff38' && color === '#66bf39') || (modifyUpdatedBoard[i].color === '#ffff38' && modifyUpdatedBoard[i].attribute2 !== "" ) ) {
+				// If the tile is currently yellow and updating to green, update only the color, not the box shadow
 				modifyUpdatedBoard[i].color = color;
+			} else if (modifyUpdatedBoard[i].color !== '#66bf39') {
+				// If the tile is not green, update the tile to the theme color
+				modifyUpdatedBoard[i].color = color;
+				modifyUpdatedBoard[i].boxShadow = "0px 10px " + bgColor;
+			} else {
+				// If the tile is green, keep the box shadow green rather than updating it to the newly found theme color
+				modifyUpdatedBoard[i].boxShadow = "0px 10px #499920"; 
 			}
-			modifyUpdatedBoard[i].boxShadow = "0px 10px " + bgColor;
 		}
+		
+		if (theme1Var.current.length !== 0 && theme2Var.current.length !== 0 && theme3Var.current.length !== 0 && theme4Var.current.length !== 0 && theme5Var.current.length !== 0) {
+			// If all themes have been found, the game is over. Set swaps to 0.
+			setSwapsLeft(0);
+		}
+		
 		setGameBoard(modifyUpdatedBoard);
 		return modifyUpdatedBoard;
 	}
@@ -338,16 +350,42 @@ function App() {
 
 		// Update the line of three tiles to be yellow. Update the odd tile out to gray if it is not already part of a line of three or four
 		for (let i = start; i < end + 1; i += increment){
-			if (modifyUpdatedBoard[i].attribute === theme && (modifyUpdatedBoard[i].color === '#edeff1' || modifyUpdatedBoard[i].color === '#ffff38')) {
-				// If the theme matches and the tile is gray, update it to yellow
-				modifyUpdatedBoard[i].color = '#ffff38';
-				modifyUpdatedBoard[i].boxShadow = '0px 10px #f0f016';
-				
-			} else if (modifyUpdatedBoard[i].attribute === theme && modifyUpdatedBoard[i].color !== '#edeff1' && modifyUpdatedBoard[i].color !== '#ffff38'){
-				// If the theme matches and the tile is a theme color, update only the box shadow to yellow
+			if (modifyUpdatedBoard[i].attribute === theme && ( (column && theme5Var.current !== []) || !column ) && modifyUpdatedBoard[i].color === '#66bf39'){
+				// If the the tile matches the theme of the yellow line, the tile is green, and theme5 has been found, update the box shadow only
 				modifyUpdatedBoard[i].boxShadow = '0px 10px #f0f016'; 
 			
-			} else if (modifyUpdatedBoard[i].attribute !== theme1Var.current[0] && modifyUpdatedBoard[i].attribute !== theme2Var.current[0] && modifyUpdatedBoard[i].attribute !== theme3Var.current[0] && modifyUpdatedBoard[i].attribute !== theme4Var.current[0] && (!column || modifyUpdatedBoard[i].color !== '#ffff38')) {
+			} else if ( modifyUpdatedBoard[i].attribute2 === theme ) {
+				// If the fifth attribute line was just broken, update the color of the tiles to match the theme found if they are in a line of 4
+				let inc;
+				if (column && i !== 3 && i !== 7 && i !== 11 && i !== 15) {
+					inc = 1;
+				} else if (column) {
+					inc = -1;
+				} else if (!column && i < 12) {
+					inc = 4;
+				} else {
+					inc = -4;
+				}
+				
+				if (modifyUpdatedBoard[i + inc].attribute === modifyUpdatedBoard[i].attribute && modifyUpdatedBoard[i + inc].color !== '#ffff38' && modifyUpdatedBoard[i + inc].color !== '#edeff1'){
+					// If the tile adjacent to it shares an attribute and is not gray or yellow, it means the tile should be part of the same theme
+					modifyUpdatedBoard[i].color = modifyUpdatedBoard[i + inc].color;
+					modifyUpdatedBoard[i].boxShadow = '0px 10px #f0f016';
+				}  else if ( modifyUpdatedBoard[i].attribute2 === theme) {
+					// If the theme matches and it's not part of a line, update it to yellow
+					modifyUpdatedBoard[i].color = '#ffff38';
+					modifyUpdatedBoard[i].boxShadow = '0px 10px #f0f016';
+				} else if (modifyUpdatedBoard[i].attribute !== theme1Var.current[0] && modifyUpdatedBoard[i].attribute !== theme2Var.current[0] && modifyUpdatedBoard[i].attribute !== theme3Var.current[0] && modifyUpdatedBoard[i].attribute !== theme4Var.current[0] &&  modifyUpdatedBoard[i].attribute2 !== theme5Var.current[0] && (!column || modifyUpdatedBoard[i].color !== '#ffff38') ) {
+					// If the theme does not match, recolor it to gray unless it is part of a theme or established yellow connection
+					modifyUpdatedBoard[i].color = '#edeff1';
+					modifyUpdatedBoard[i].boxShadow = '0px 10px #d5d7d9'
+				}
+			} else if ( (modifyUpdatedBoard[i].attribute === theme || modifyUpdatedBoard[i].attribute2 === theme) ) {
+				// If the theme matches, update it to yellow
+				modifyUpdatedBoard[i].color = '#ffff38';
+				modifyUpdatedBoard[i].boxShadow = '0px 10px #f0f016';
+			
+			} else if (modifyUpdatedBoard[i].attribute !== theme1Var.current[0] && modifyUpdatedBoard[i].attribute !== theme2Var.current[0] && modifyUpdatedBoard[i].attribute !== theme3Var.current[0] && modifyUpdatedBoard[i].attribute !== theme4Var.current[0] &&  modifyUpdatedBoard[i].attribute2 !== theme5Var.current[0] && (!column || modifyUpdatedBoard[i].color !== '#ffff38') ) {
 				// If the theme does not match, recolor it to gray unless it is part of a theme or established yellow connection
 				modifyUpdatedBoard[i].color = '#edeff1';
 				modifyUpdatedBoard[i].boxShadow = '0px 10px #d5d7d9'
@@ -369,14 +407,34 @@ function App() {
 	function noMatches(start, end, increment, modifyUpdatedBoard, column){		
 		for (let i = start; i < end + 1; i += increment){
 			if (modifyUpdatedBoard[i].attribute !== theme1Var.current[0] && modifyUpdatedBoard[i].attribute !== theme2Var.current[0] && modifyUpdatedBoard[i].attribute !== theme3Var.current[0] && modifyUpdatedBoard[i].attribute !== theme4Var.current[0] && modifyUpdatedBoard[i].attribute2 !== theme5Var.current[0] && (!column || modifyUpdatedBoard[i].color !== '#ffff38')) {
+				// If the tile does not match any themes and is not intended to be yellow, update it to gray
 				modifyUpdatedBoard[i].color = '#edeff1';
 			}
 			
 			if (modifyUpdatedBoard[i].attribute !== theme1Var.current[0] && modifyUpdatedBoard[i].attribute !== theme2Var.current[0] && modifyUpdatedBoard[i].attribute !== theme3Var.current[0] && modifyUpdatedBoard[i].attribute !== theme4Var.current[0] && (!column || modifyUpdatedBoard[i].color !== '#ffff38')) {
 				if (modifyUpdatedBoard[i].color === '#66bf39'){
+					// If the tile does not match first 4 themes and is green, update the box shadow to green
 					modifyUpdatedBoard[i].boxShadow = '0px 10px #499920'
 				} else {
+					// If the tile does not match any themes, update box shadow to gray
 					modifyUpdatedBoard[i].boxShadow = '0px 10px #d5d7d9'
+				}
+			}
+			if (modifyUpdatedBoard[i].attribute === theme1Var.current[0] || modifyUpdatedBoard[i].attribute === theme2Var.current[0] || modifyUpdatedBoard[i].attribute === theme3Var.current[0] || modifyUpdatedBoard[i].attribute === theme4Var.current[0] ) {
+				// If the tile does match a theme, update color and box shadow (they can otherwise have a box shadow that stays yellow even without a sequence of 3 tiles)
+				let theme = modifyUpdatedBoard[i].attribute;
+				if (theme1Var.current[0] === theme) {
+					modifyUpdatedBoard[i].color = theme1Color;
+					modifyUpdatedBoard[i].boxShadow = '0px 10px ' + theme1BackgroundColor;
+				} else if (theme2Var.current[0] === theme) {
+					modifyUpdatedBoard[i].color = theme2Color;
+					modifyUpdatedBoard[i].boxShadow = '0px 10px ' + theme2BackgroundColor;
+				} else if (theme3Var.current[0] === theme) {
+					modifyUpdatedBoard[i].color = theme3Color;
+					modifyUpdatedBoard[i].boxShadow = '0px 10px ' + theme3BackgroundColor;
+				} else if (theme4Var.current[0] === theme) {
+					modifyUpdatedBoard[i].color = theme4Color;
+					modifyUpdatedBoard[i].boxShadow = '0px 10px ' + theme4BackgroundColor;
 				}
 			}
 		}
@@ -391,6 +449,14 @@ function App() {
 				<span className="title-second-word">THE</span>
 				<span className="title-third-word">GAMEDLE</span>
 			</div>
+			
+			{swapsLeft === 1 && <div className="game-over-bg">
+				<p className="game-over">One Swap Left</p>
+			</div>}
+			
+			{swapsLeft === 0 && <div className="game-over-bg">
+				<p className="game-over">Game Over!</p>
+			</div>}
 			
 			<div className="grid-container">
 				{gameBoard.map((box, index) => (

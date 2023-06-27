@@ -1,7 +1,7 @@
 /* Container for the title */
 .title {
 	text-align: center;
-	padding-top: 0.5em;
+	padding-top: 0.3em;
 	font-weight: bold;
 	font-family: 'Oswald';
 	font-size: 60px;
@@ -22,15 +22,15 @@
 /* Container that creates a grid for the game tiles */
 .grid-container {
 	display: grid;
-	grid-template-columns: repeat(4, 0.1fr);
+	grid-template-columns: repeat(4, 0.01fr);
 }
 /* Style for a game tile */
 .game-tile {
   background-color: #edeff1; 
   box-shadow: 0px 10px #d5d7d9;
-  width: 12em;
-  padding-top: 3em;
-  padding-bottom: 3em;
+  width: 11em;
+  padding-top: 2.7em;
+  padding-bottom: 2.7em;
   border: none;
   border-radius: 25px;
   text-align: center;
@@ -42,16 +42,16 @@
 .games-found {
 	font-family: 'Oswald';
 	font-size: 40px;
-	left: 13.5em; 
-	top: 3.5em;
+	left: 14em; 
+	top: 2.8em;
 	position: relative;
 }
 /* Positioning the "Swaps Left" text */
 .swaps-left {
 	font-family: 'Oswald';
 	font-size: 40px;
-	left: 28em; 
-	top: 3.5em;
+	left: 27em; 
+	top: 2.8em;
 	position: relative;
 }
 /* Default text style, used for the text on the game tiles */
@@ -62,8 +62,9 @@ p {
 
 /* Sets the width of accordions */
 .accordion {
-	max-width: 51em;
-	margin: 2rem auto;
+	max-width: 49em;
+	margin: 1.5rem auto;
+	padding-right: 1em;
 }
 
 .accordion-title {
@@ -80,4 +81,20 @@ p {
 	padding-top: 0.3em;
 	padding-bottom: 0.3em;
 	padding-left: 0.3em;
+}
+
+.game-over {
+	text-align: center;
+	padding-top: 0.01em;
+	font-weight: normal;
+	font-family: 'Oswald';
+	font-size: 25px;
+}
+
+.game-over-bg {
+	max-width: 50em;
+	margin: 0.5rem auto;
+	padding-top: 0.01em;
+	padding-bottom: 0.01em;
+	background-color: #edeff1; 
 }
