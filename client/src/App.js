@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useRef } from 'react';
+import React, { Fragment, useState, useRef, useEffect } from 'react';
 import './app-style.css';
 import GameTile from './components/GameTile.js';
 import Accordion from './components/Accordion.js';
@@ -90,24 +90,33 @@ function App() {
 	const theme5BackgroundColor = '#499920';
 	
 	// An array containing the positions of each tile on the board
-	const [gameBoard, setGameBoard] = useState([
-		{ title: 'LAST OF US PART II', 			attribute: 'Series: Second in a Franchise', 	content: "The game is the second in a series.",	attribute2: "Award: Game of the Year (From the Game Awards)",	content2: "This game was awarded game of the year at Jeff Keighley's award show.", 	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'OKAMI', 						attribute: 'Setting: Feudal Japan',				content: "The game is set in ancient Japan.",	attribute2: "",													content2: "",											 						 	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'SUPER SMASH BROS ULTIMATE', 	attribute: 'Release Year: 2018', 				content: "The game was released in 2018.",		attribute2: "",													content2: "",											 							color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'BREATH OF THE WILD', 			attribute: 'Theme: Wake Up in Intro Sequence', 	content: "Hey, you're finally awake.",			attribute2: "Award: Game of the Year (From the Game Awards)",	content2: "This game was awarded game of the year at Jeff Keighley's award show.",	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'PORTAL', 						attribute: 'Theme: Wake Up in Intro Sequence', 	content: "Hey, you're finally awake.",			attribute2: "",													content2: "",											 							color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'NIOH',						attribute: 'Setting: Feudal Japan',  			content: "The game is set in ancient Japan.",	attribute2: "",													content2: "",											 							color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'SPIDERMAN: MILES MORALES', 	attribute: 'Series: Second in a Franchise', 	content: "The game is the second in a series.",	attribute2: "",													content2: "",																		color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'CELESTE', 					attribute: 'Release Year: 2018', 				content: "The game was released in 2018.",		attribute2: "",													content2: "",											 							color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'GOD OF WAR', 					attribute: 'Release Year: 2018', 				content: "The game was released in 2018.",		attribute2: "Award: Game of the Year (From the Game Awards)",	content2: "This game was awarded game of the year at Jeff Keighley's award show.", 	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'ELDER SCROLLS V: SKYRIM', 	attribute: 'Theme: Wake Up in Intro Sequence', 	content: "Hey, you're finally awake.",			attribute2: "",													content2: "",											 							color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'SEKIRO: SHADOWS DIE TWICE',	attribute: 'Setting: Feudal Japan', 			content: "The game is set in ancient Japan.",	attribute2: "Award: Game of the Year (From the Game Awards)",	content2: "This game was awarded game of the year at Jeff Keighley's award show.", 	color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'ARMA 2', 						attribute: 'Series: Second in a Franchise', 	content: "The game is the second in a series.",	attribute2: "",													content2: "",											 							color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'MONSTER HUNTER WORLD', 		attribute: 'Release Year: 2018',				content: "The game was released in 2018.",		attribute2: "",													content2: "",																		color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'BANJO TOOIE', 				attribute: 'Series: Second in a Franchise', 	content: "The game is the second in a series.",	attribute2: "",													content2: "",											 							color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'FIRE EMBLEM AWAKENING',		attribute: 'Theme: Wake Up in Intro Sequence', 	content: "Hey, you're finally awake.",			attribute2: "",													content2: "",											 							color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-		{ title: 'GHOST OF TSUSHIMA', 			attribute: 'Setting: Feudal Japan', 			content: "The game is set in ancient Japan.",	attribute2: "",													content2: "",																		color: '#edeff1', boxShadow: '0px 10px #d5d7d9' },
-	]);
+	const [gameBoard, setGameBoard] = useState([]);
+	
+	// Sets the initial state of the game board
+	useEffect(() => {
+		// Fetch the file contents
+		fetch('./puzzles/puzzle3.txt')
+		.then(response => response.text())
+		.then(data => {
+			// Process the data
+			const parsedData = processData(data);
+			setGameBoard(parsedData);
+		})
+		.catch(error => {
+			console.error('Error fetching file:', error);
+		});
+	}, []);
+
+	// Function to process the file data and return the desired format
+	const processData = (data) => {
+		const formattedData = data.replace(/\t/g, '');
+		const game = formattedData.split(/\r?\n/);
+		const parsedData = game.map(game => {
+			const [title, attribute, content, attribute2, content2, color, boxShadow] = game.split(',');
+			return { title, attribute, content, attribute2, content2, color, boxShadow };
+		});
+		return parsedData;
+	};
 
 	// Saves the index of the dragged tile
 	const handleDragStart = (index) => (event) => {

@@ -1,0 +1,16 @@
+LEGEND,League of Legends,One of the most popular MOBAS.,The Legend of Zelda: Breath of the Wild,A game about Link saving Zelda,#edeff1,0px 10px #d5d7d9
+HILL,Silent Hill,Horror game.,,,#edeff1,0px 10px #d5d7d9
+META,Kirby's Return to Dream Land,Another great kirby game.,,,#edeff1,0px 10px #d5d7d9
+PRINCESS,Dead or Alive,Idk man.,The Legend of Zelda: Breath of the Wild,A game about Link saving Zelda.,#edeff1,0px 10px #d5d7d9
+DEAD,Dead or Alive,Idk man.,,,#edeff1,0px 10px #d5d7d9
+HORROR,Silent Hill,Horror game.,,,#edeff1,0px 10px #d5d7d9
+TEAM OF 5,League of Legends,One of the most popular MOBAS.,,,#edeff1,0px 10px #d5d7d9
+LAND,Kirby's Return to Dream Land,Another great kirby game.,,,#edeff1,0px 10px #d5d7d9
+KNIGHT,Kirby's Return to Dream Land,Another great kirby game.,The Legend of Zelda: Breath of the Wild,A game about Link saving Zelda.,#edeff1,0px 10px #d5d7d9
+ALIVE,Dead or Alive,Idk man.,,,#edeff1,0px 10px #d5d7d9
+SILENT,Silent Hill,Horror game.,The Legend of Zelda: Breath of the Wild,A game about Link saving Zelda.,#edeff1,0px 10px #d5d7d9
+CHAMPIONS,League of Legends,One of the most popular MOBAS.,,,#edeff1,0px 10px #d5d7d9
+DREAM,Kirby's Return to Dream Land,Another great kirby game.,,,#edeff1,0px 10px #d5d7d9
+SUMMONER,League of Legends,One of the most popular MOBAS.,,,#edeff1,0px 10px #d5d7d9
+NINJA,Dead or Alive,Idk man.,,,#edeff1,0px 10px #d5d7d9
+THIRD PERSON,Silent Hill,Horror game.,,,#edeff1,0px 10px #d5d7d9

@@ -1,0 +1,16 @@
+LAST OF US PART II,Series: Second in a Franchise,The game is the second in a series.,Award: Game of the Year (From the Game Awards),This game was awarded game of the year at Jeff Keighley's award show.,#edeff1,0px 10px #d5d7d9
+OKAMI,Setting: Feudal Japan,The game is set in ancient Japan.,,,#edeff1,0px 10px #d5d7d9
+SUPER SMASH BROS ULTIMATE,Release Year: 2018,The game was released in 2018.,,,#edeff1,0px 10px #d5d7d9
+BREATH OF THE WILD,Theme: Wake Up in Intro Sequence,Hey you're finally awake.,Award: Game of the Year (From the Game Awards),This game was awarded game of the year at Jeff Keighley's award show.,#edeff1,0px 10px #d5d7d9
+PORTAL,Theme: Wake Up in Intro Sequence,Hey you're finally awake.,,,#edeff1,0px 10px #d5d7d9
+NIOH,Setting: Feudal Japan,The game is set in ancient Japan.,,,#edeff1,0px 10px #d5d7d9
+SPIDERMAN: MILES MORALES,Series: Second in a Franchise,The game is the second in a series.,,,#edeff1,0px 10px #d5d7d9
+CELESTE,Release Year: 2018,The game was released in 2018.,,,#edeff1,0px 10px #d5d7d9
+GOD OF WAR,Release Year: 2018,The game was released in 2018.,Award: Game of the Year (From the Game Awards),This game was awarded game of the year at Jeff Keighley's award show.,#edeff1,0px 10px #d5d7d9
+ELDER SCROLLS V: SKYRIM,Theme: Wake Up in Intro Sequence,Hey you're finally awake.,,,#edeff1,0px 10px #d5d7d9
+SEKIRO: SHADOWS DIE TWICE,Setting: Feudal Japan,The game is set in ancient Japan.,Award: Game of the Year (From the Game Awards),This game was awarded game of the year at Jeff Keighley's award show.,#edeff1,0px 10px #d5d7d9
+ARMA 2,Series: Second in a Franchise,The game is the second in a series.,,,#edeff1,0px 10px #d5d7d9
+MONSTER HUNTER WORLD,Release Year: 2018,The game was released in 2018.,,,#edeff1,0px 10px #d5d7d9
+BANJO TOOIE,Series: Second in a Franchise,The game is the second in a series.,,,#edeff1,0px 10px #d5d7d9
+FIRE EMBLEM AWAKENING,Theme: Wake Up in Intro Sequence,Hey you're finally awake.,,,#edeff1,0px 10px #d5d7d9
+GHOST OF TSUSHIMA,Setting: Feudal Japan,The game is set in ancient Japan.,,,#edeff1,0px 10px #d5d7d9
