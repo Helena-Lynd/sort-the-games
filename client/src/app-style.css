@@ -42,6 +42,18 @@
   display: flex; 
   justify-content: center; 
   align-items: center; 
+  transition: transform 0.2s;
+}
+
+.tile-active {
+  transform: scale(1.1); /* Enlarge the tile by 10% */
+}
+
+.game-tile:active,
+.game-tile.tile-active {
+  /* Apply the animation effect when the tile is clicked or active */
+  transform: scale(1.1); /* Enlarge the tile by 10% */
+
 }
 
 .game-tile-text {

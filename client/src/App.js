@@ -54,6 +54,9 @@ function attributeMatch(start, end, increment, updatedBoard) {
 
 
 function App() {
+	// State containing which tile is selected
+	const [activeIndex, setActiveIndex] = useState(null);
+	
 	// Number of swaps left before the game ends
 	const [swapsLeft, setSwapsLeft] = useState(15);
 	
@@ -95,7 +98,7 @@ function App() {
 	// Sets the initial state of the game board
 	useEffect(() => {
 		// Fetch the file contents
-		fetch('./puzzles/puzzle3.txt')
+		fetch('./puzzles/puzzle1.txt')
 		.then(response => response.text())
 		.then(data => {
 			// Process the data
@@ -121,34 +124,48 @@ function App() {
 	// Saves the index of the dragged tile
 	const handleDragStart = (index) => (event) => {
 		event.dataTransfer.setData('text/plain', index);
+		setActiveIndex(index);
 	};
 
 	// Handles the event of the dragged tile being dropped
 	const handleDrop = (index) => (event) => {
+		event.preventDefault();
 		// Retreives the saved index of the tile being dragged 
 		const draggedIndex = event.dataTransfer.getData('text/plain');
-		// Copy the gameBoard state 
-		const updatedBoard = [...gameBoard];
-		// Find the content associated with the tile being dragged
-		const draggedBox = updatedBoard[draggedIndex];
-		// Swap the position of the dragged tile with the tile it is dropped on
-		updatedBoard[draggedIndex] = updatedBoard[index];
-		updatedBoard[index] = draggedBox;
-		// Update the state of the game board
-		setGameBoard(updatedBoard);
+		if (index !== draggedIndex) {
+			// Copy the gameBoard state 
+			const updatedBoard = [...gameBoard];
+			// Find the content associated with the tile being dragged
+			const draggedBox = updatedBoard[draggedIndex];
+			// Swap the position of the dragged tile with the tile it is dropped on
+			updatedBoard[draggedIndex] = updatedBoard[index];
+			updatedBoard[index] = draggedBox;
+			// Update the state of the game board
+			setGameBoard(updatedBoard);
 		
-		// Reduce number of swaps by 1. When this number hits 0, swapping is no longer enabled
-		if (swapsLeft >= 1) {
-			setSwapsLeft(swapsLeft-1);
+			// Reduce number of swaps by 1. When this number hits 0, swapping is no longer enabled
+			if (swapsLeft >= 1) {
+				setSwapsLeft(swapsLeft-1);
+			}
+		
+			// Check the board for matches, using the updated positions
+			checkBoard(updatedBoard);
 		}
-		
-		// Check the board for matches, using the updated positions
-		checkBoard(updatedBoard);
 	};
 
 	// Allows drag and drop functionality for the tiles
-	const handleDragOver = (event) => {
+	const handleDragOver = (index) => (event) => {
 		event.preventDefault();
+		  if (index === activeIndex) {
+			event.currentTarget.classList.add('tile-active');
+			}
+	};
+	
+	// 
+	const handleDragLeave = () => {
+		if (activeIndex !== null) {
+			setActiveIndex(null);
+		}
 	};
 	
 	/**
@@ -474,10 +491,11 @@ function App() {
 					draggable={swapsLeft > 0 ? 'true' : 'false'}
 					onDragStart={handleDragStart(index)}
 					onDrop={handleDrop(index)}
-					onDragOver={handleDragOver}
+					onDragOver={handleDragOver(index)}
+					onDragLeave={handleDragLeave(index)}
 					style={{ flex: '0.1'}}
 					>
-						<GameTile title={box.title} index={index} color={box.color} boxShadow={box.boxShadow}/>
+						<GameTile title={box.title} index={index} color={box.color} boxShadow={box.boxShadow} activeIndex={activeIndex}/>
 					</div>
 				))}
 			</div>
