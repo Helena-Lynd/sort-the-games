@@ -13,14 +13,15 @@ The theme may be a common developer, publisher, genre, character type, etc. For 
 The goal is for the player to find four themes aligned in rows or columns, whichever the player chooses.
 
 Here is an example of themes found in rows:
+
 ![AllRowsGameBoard](https://github.com/Helena-Lynd/sort-the-games/blob/main/all-rows-game-board.png)
 
 And here is the same puzzle with the themes found in columns:
+
 ![AllColumnsGameBoard](https://github.com/Helena-Lynd/sort-the-games/blob/main/all-columns-game-board.png)
 
 Additionally, there is a fifth theme that will always go in the opposite direction of the other four themes, and its color will always be green when all four games have been aligned. 
 
-Picture of the board with the green theme
 ![GameWon](https://github.com/Helena-Lynd/sort-the-games/blob/main/game-won.png)
 
 The game is won once the player has found all five themes. The game is lost if the player cannot find all the themes within the limited number of swaps.
